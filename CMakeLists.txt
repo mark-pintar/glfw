@@ -226,10 +226,16 @@ endif()
 #--------------------------------------------------------------------
 if (_GLFW_X11)
 
-  find_package(OpenGL REQUIRED)
-  list(APPEND glfw_LIBRARIES "${OPENGL_LIBRARIES}")
+    find_package(OpenGL REQUIRED)
+    list(APPEND glfw_LIBRARIES "${OPENGL_LIBRARIES}")
 
-  find_package(X11 REQUIRED)
+    hunter_add_package(x11)
+    hunter_add_package(xrandr)
+    hunter_add_package(xinerama)
+    hunter_add_package(xxf86vm)
+    hunter_add_package(xext)
+    hunter_add_package(xcursor)
+    find_package(X11 REQUIRED)
 
     list(APPEND glfw_PKG_DEPS "x11")
 
