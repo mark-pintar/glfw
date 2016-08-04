@@ -261,6 +261,17 @@ if (_GLFW_X11)
     list(APPEND glfw_LIBRARIES "${X11_Xcursor_LIB}")
     list(APPEND glfw_PKG_DEPS "xcursor")
 
+    if(NOT BUILD_SHARED_LIBS)
+      find_library(X11_Xcb_LIB xcb)
+      list(APPEND glfw_LIBRARIES "${X11_Xcb_LIB}")
+      # Libs below are found through find_package(X11 REQUIRED) above
+      list(APPEND glfw_LIBRARIES "${X11_Xext_LIB}")
+      list(APPEND glfw_LIBRARIES "${X11_Xrender_LIB}")
+      list(APPEND glfw_LIBRARIES "${X11_X11_LIB}")
+      list(APPEND glfw_LIBRARIES "${X11_Xfixes_LIB}")
+      list(APPEND glfw_LIBRARIES "${X11_Xau_LIB}")
+    endif()
+
 endif()
 
 #--------------------------------------------------------------------
