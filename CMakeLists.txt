@@ -345,6 +345,11 @@ if (_GLFW_COCOA)
 
     set(glfw_PKG_DEPS "")
     set(glfw_PKG_LIBS "-framework Cocoa -framework IOKit -framework CoreFoundation -framework CoreVideo")
+
+    if(NOT BUILD_SHARED_LIBS)
+      find_library(OPENGL_FRAMEWORK OpenGL)
+      list(APPEND glfw_LIBRARIES "${OPENGL_FRAMEWORK}")
+    endif()
 endif()
 
 #--------------------------------------------------------------------
