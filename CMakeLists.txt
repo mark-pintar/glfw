@@ -214,6 +214,10 @@ endif()
 #--------------------------------------------------------------------
 if (_GLFW_WIN32)
 
+    find_package(OpenGL REQUIRED)
+    list(APPEND glfw_INCLUDE_DIR "${OPENGL_INCLUDE_DIR}")
+    list(APPEND glfw_LIBRARIES "${OPENGL_gl_LIBRARY}")
+
     list(APPEND glfw_PKG_LIBS "-lgdi32")
 
     if (GLFW_USE_HYBRID_HPG)
