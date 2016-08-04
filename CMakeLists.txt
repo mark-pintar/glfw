@@ -57,7 +57,7 @@ else()
     set(GLFW_LIB_NAME glfw3)
 endif()
 
-list(APPEND CMAKE_MODULE_PATH "${GLFW_SOURCE_DIR}/CMake/modules")
+list(APPEND CMAKE_MODULE_PATH "${GLFW_SOURCE_DIR}/cmake/modules")
 
 find_package(Threads REQUIRED)
 find_package(Vulkan)
