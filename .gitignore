@@ -1,3 +1,12 @@
+# hunter directories
+_packing/
+_logs/
+_builds/
+_install/
+_framework/
+_archives/
+_assets/
+
 # External junk
 .DS_Store
 _ReSharper*
