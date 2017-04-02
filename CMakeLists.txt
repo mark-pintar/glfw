@@ -3,8 +3,8 @@ cmake_minimum_required(VERSION 3.0)
 include("cmake/HunterGate.cmake")
 
 HunterGate(
-    URL "https://github.com/ruslo/hunter/archive/v0.15.6.tar.gz"
-    SHA1 "3dc0cd2ccbc52e8be93967dbc583303a1e825aa2"
+    URL "https://github.com/ruslo/hunter/archive/v0.18.33.tar.gz"
+    SHA1 "6c8f14fce61cb35f39a3179a51109547ccaa103b"
 )
 
 project(GLFW C)
@@ -234,11 +234,12 @@ if (_GLFW_X11)
     list(APPEND glfw_LIBRARIES "${OPENGL_LIBRARIES}")
 
     hunter_add_package(x11)
-    hunter_add_package(xrandr)
-    hunter_add_package(xinerama)
-    hunter_add_package(xxf86vm)
-    hunter_add_package(xext)
     hunter_add_package(xcursor)
+    hunter_add_package(xext)
+    hunter_add_package(xi)
+    hunter_add_package(xinerama)
+    hunter_add_package(xrandr)
+    hunter_add_package(xxf86vm)
     find_package(X11 REQUIRED)
 
     list(APPEND glfw_PKG_DEPS "x11")
