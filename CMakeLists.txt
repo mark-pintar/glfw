@@ -358,7 +358,7 @@ endif()
 # Use OSMesa for offscreen context creation
 #--------------------------------------------------------------------
 if (_GLFW_OSMESA)
-    find_package(OSMesa REQUIRED)
+    find_package(osmesa REQUIRED)
     list(APPEND glfw_LIBRARIES "${CMAKE_THREAD_LIBS_INIT}")
 endif()
 
