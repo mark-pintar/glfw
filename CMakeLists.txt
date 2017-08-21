@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.0)
+cmake_minimum_required(VERSION 3.8) # OpenGL::GL
 
 include("cmake/HunterGate.cmake")
 
@@ -236,8 +236,7 @@ endif()
 if (_GLFW_WIN32)
 
     find_package(OpenGL REQUIRED)
-    list(APPEND glfw_INCLUDE_DIR "${OPENGL_INCLUDE_DIR}")
-    list(APPEND glfw_LIBRARIES "${OPENGL_gl_LIBRARY}")
+    list(APPEND glfw_LIBRARIES OpenGL::GL)
 
     list(APPEND glfw_PKG_LIBS "-lgdi32")
 
@@ -252,7 +251,7 @@ endif()
 if (_GLFW_X11)
 
     find_package(OpenGL REQUIRED)
-    list(APPEND glfw_LIBRARIES "${OPENGL_LIBRARIES}")
+    list(APPEND glfw_LIBRARIES OpenGL::GL)
 
     hunter_add_package(x11)
     hunter_add_package(xcursor)
