@@ -3,8 +3,8 @@ cmake_minimum_required(VERSION 3.8) # OpenGL::GL
 include("cmake/HunterGate.cmake")
 
 HunterGate(
-    URL "https://github.com/ruslo/hunter/archive/v0.19.76.tar.gz"
-    SHA1 "3928c73bc9fb27107d1932ec41f23e9bc6e21a03"
+    URL "https://github.com/ruslo/hunter/archive/v0.19.77.tar.gz"
+    SHA1 "8898dd07756c408c63c63add903c8600c4cf4c0e"
 )
 
 project(GLFW C)
@@ -155,12 +155,22 @@ if (MINGW)
 endif()
 
 if (APPLE)
+    find_package(appkit REQUIRED)
+    find_package(coredata REQUIRED)
+    find_package(foundation REQUIRED)
+    find_package(metal REQUIRED)
+    find_package(quartzcore REQUIRED)
+
     # Dependencies required by the MoltenVK static library
-    set(GLFW_VULKAN_DEPS
+    set(
+        GLFW_VULKAN_DEPS
         "-lc++"
-        "-framework Cocoa"
-        "-framework Metal"
-        "-framework QuartzCore")
+        appkit::appkit
+        coredata::coredata
+        foundation::foundation
+        metal::metal
+        quartzcore::quartzcore
+    )
 endif()
 
 #--------------------------------------------------------------------
@@ -365,19 +375,37 @@ endif()
 # Use Cocoa for window creation and NSOpenGL for context creation
 #--------------------------------------------------------------------
 if (_GLFW_COCOA)
+    find_package(appkit REQUIRED)
+    find_package(coredata REQUIRED)
+    find_package(foundation REQUIRED)
+    find_package(iokit REQUIRED)
+    find_package(corefoundation REQUIRED)
+    find_package(corevideo REQUIRED)
 
-    list(APPEND glfw_LIBRARIES
-        "-framework Cocoa"
-        "-framework IOKit"
-        "-framework CoreFoundation"
-        "-framework CoreVideo")
+    list(
+        APPEND glfw_LIBRARIES
+        appkit::appkit
+        coredata::coredata
+        foundation::foundation
+        iokit::iokit
+        corefoundation::corefoundation
+        corevideo::corevideo
+    )
 
     set(glfw_PKG_DEPS "")
-    set(glfw_PKG_LIBS "-framework Cocoa -framework IOKit -framework CoreFoundation -framework CoreVideo")
+    set(
+        glfw_PKG_LIBS
+        appkit::appkit
+        coredata::coredata
+        foundation::foundation
+        iokit::iokit
+        corefoundation::corefoundation
+        corevideo::corevideo
+    )
 
     if(NOT BUILD_SHARED_LIBS)
-      find_library(OPENGL_FRAMEWORK OpenGL)
-      list(APPEND glfw_LIBRARIES "${OPENGL_FRAMEWORK}")
+      find_package(OpenGL REQUIRED)
+      list(APPEND glfw_LIBRARIES OpenGL::GL)
     endif()
 endif()
 
