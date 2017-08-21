@@ -3,8 +3,8 @@ cmake_minimum_required(VERSION 3.8) # OpenGL::GL
 include("cmake/HunterGate.cmake")
 
 HunterGate(
-    URL "https://github.com/ruslo/hunter/archive/v0.19.45.tar.gz"
-    SHA1 "56b690cd9bf54de1099727672b8525a4102f124f"
+    URL "https://github.com/ruslo/hunter/archive/v0.19.76.tar.gz"
+    SHA1 "3928c73bc9fb27107d1932ec41f23e9bc6e21a03"
 )
 
 project(GLFW C)
