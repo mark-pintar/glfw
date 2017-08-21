@@ -386,7 +386,7 @@ set(GLFW_CONFIG_PATH "lib${LIB_SUFFIX}/cmake/glfw3")
 configure_package_config_file(src/glfw3Config.cmake.in
                               src/glfw3Config.cmake
                               INSTALL_DESTINATION "${GLFW_CONFIG_PATH}"
-                              NO_CHECK_REQUIRED_COMPONENTS_MACRO)
+                              )
 
 write_basic_package_version_file(src/glfw3ConfigVersion.cmake
                                  VERSION ${GLFW_VERSION_FULL}
