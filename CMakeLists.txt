@@ -79,6 +79,8 @@ endif()
 list(APPEND CMAKE_MODULE_PATH "${GLFW_SOURCE_DIR}/cmake/modules")
 
 find_package(Threads REQUIRED)
+list(APPEND glfw_LIBRARIES Threads::Threads)
+
 find_package(Vulkan)
 
 if (GLFW_BUILD_DOCS)
@@ -259,70 +261,16 @@ endif()
 # Use X11 for window creation
 #--------------------------------------------------------------------
 if (_GLFW_X11)
-
     find_package(OpenGL REQUIRED)
     list(APPEND glfw_LIBRARIES OpenGL::GL)
 
-    hunter_add_package(x11)
-    hunter_add_package(xcursor)
-    hunter_add_package(xext)
-    hunter_add_package(xi)
-    hunter_add_package(xinerama)
-    hunter_add_package(xrandr)
-    hunter_add_package(xxf86vm)
-    find_package(X11 REQUIRED)
+    foreach(dep xcursor xinerama xrandr)
+      hunter_add_package(${dep})
+      find_package(${dep} CONFIG REQUIRED)
 
-    list(APPEND glfw_PKG_DEPS "x11")
-
-    # Set up library and include paths
-    list(APPEND glfw_INCLUDE_DIRS "${X11_X11_INCLUDE_PATH}")
-    list(APPEND glfw_LIBRARIES "${X11_X11_LIB}" "${CMAKE_THREAD_LIBS_INIT}")
-
-    # Check for XRandR (modern resolution switching and gamma control)
-    if (NOT X11_Xrandr_FOUND)
-        message(FATAL_ERROR "The RandR library and headers were not found")
-    endif()
-
-    list(APPEND glfw_INCLUDE_DIRS "${X11_Xrandr_INCLUDE_PATH}")
-    list(APPEND glfw_LIBRARIES "${X11_Xrandr_LIB}")
-    list(APPEND glfw_PKG_DEPS "xrandr")
-
-    # Check for Xinerama (legacy multi-monitor support)
-    if (NOT X11_Xinerama_FOUND)
-        message(FATAL_ERROR "The Xinerama library and headers were not found")
-    endif()
-
-    list(APPEND glfw_INCLUDE_DIRS "${X11_Xinerama_INCLUDE_PATH}")
-    list(APPEND glfw_LIBRARIES "${X11_Xinerama_LIB}")
-    list(APPEND glfw_PKG_DEPS "xinerama")
-
-    # Check for Xkb (X keyboard extension)
-    if (NOT X11_Xkb_FOUND)
-        message(FATAL_ERROR "The X keyboard extension headers were not found")
-    endif()
-
-    list(APPEND glfw_INCLUDE_DIR "${X11_Xkb_INCLUDE_PATH}")
-
-    # Check for Xcursor
-    if (NOT X11_Xcursor_FOUND)
-        message(FATAL_ERROR "The Xcursor libraries and headers were not found")
-    endif()
-
-    list(APPEND glfw_INCLUDE_DIR "${X11_Xcursor_INCLUDE_PATH}")
-    list(APPEND glfw_LIBRARIES "${X11_Xcursor_LIB}")
-    list(APPEND glfw_PKG_DEPS "xcursor")
-
-    if(NOT BUILD_SHARED_LIBS)
-      find_library(X11_Xcb_LIB xcb)
-      list(APPEND glfw_LIBRARIES "${X11_Xcb_LIB}")
-      # Libs below are found through find_package(X11 REQUIRED) above
-      list(APPEND glfw_LIBRARIES "${X11_Xext_LIB}")
-      list(APPEND glfw_LIBRARIES "${X11_Xrender_LIB}")
-      list(APPEND glfw_LIBRARIES "${X11_X11_LIB}")
-      list(APPEND glfw_LIBRARIES "${X11_Xfixes_LIB}")
-      list(APPEND glfw_LIBRARIES "${X11_Xau_LIB}")
-    endif()
-
+      list(APPEND glfw_LIBRARIES "PkgConfig::${dep}")
+      list(APPEND glfw_PKG_DEPS "PkgConfig::${dep}")
+    endforeach()
 endif()
 
 #--------------------------------------------------------------------
@@ -339,7 +287,7 @@ if (_GLFW_WAYLAND)
     list(APPEND glfw_PKG_DEPS "wayland-egl")
 
     list(APPEND glfw_INCLUDE_DIRS "${Wayland_INCLUDE_DIR}")
-    list(APPEND glfw_LIBRARIES "${Wayland_LIBRARIES}" "${CMAKE_THREAD_LIBS_INIT}")
+    list(APPEND glfw_LIBRARIES "${Wayland_LIBRARIES}")
 
     find_package(XKBCommon REQUIRED)
     list(APPEND glfw_PKG_DEPS "xkbcommon")
@@ -355,7 +303,7 @@ if (_GLFW_MIR)
     list(APPEND glfw_PKG_DEPS "mirclient")
 
     list(APPEND glfw_INCLUDE_DIRS "${MIR_INCLUDE_DIRS}")
-    list(APPEND glfw_LIBRARIES "${MIR_LIBRARIES}" "${CMAKE_THREAD_LIBS_INIT}")
+    list(APPEND glfw_LIBRARIES "${MIR_LIBRARIES}")
 
     find_package(XKBCommon REQUIRED)
     list(APPEND glfw_PKG_DEPS "xkbcommon")
@@ -368,7 +316,6 @@ endif()
 #--------------------------------------------------------------------
 if (_GLFW_OSMESA)
     find_package(osmesa REQUIRED)
-    list(APPEND glfw_LIBRARIES "${CMAKE_THREAD_LIBS_INIT}")
 endif()
 
 #--------------------------------------------------------------------
