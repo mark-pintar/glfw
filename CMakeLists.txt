@@ -264,7 +264,7 @@ if (_GLFW_X11)
     find_package(OpenGL REQUIRED)
     list(APPEND glfw_LIBRARIES OpenGL::GL)
 
-    foreach(dep xcursor xinerama xrandr)
+    foreach(dep xcursor xinerama xrandr xi)
       hunter_add_package(${dep})
       find_package(${dep} CONFIG REQUIRED)
 

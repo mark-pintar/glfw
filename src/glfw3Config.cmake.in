@@ -11,6 +11,7 @@ if("@_GLFW_X11@")
   find_package(xcursor CONFIG REQUIRED)
   find_package(xinerama CONFIG REQUIRED)
   find_package(xrandr CONFIG REQUIRED)
+  find_package(xi CONFIG REQUIRED)
 endif()
 
 if("@_GLFW_COCOA@")
