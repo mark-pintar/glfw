@@ -67,6 +67,8 @@ endif()
 list(APPEND CMAKE_MODULE_PATH "${GLFW_SOURCE_DIR}/CMake/modules")
 
 find_package(Threads REQUIRED)
+list(APPEND glfw_LIBRARIES Threads::Threads)
+
 find_package(Vulkan)
 
 if (GLFW_BUILD_DOCS)
@@ -228,7 +230,6 @@ endif()
 # Use X11 for window creation
 #--------------------------------------------------------------------
 if (_GLFW_X11)
-
     find_package(OpenGL REQUIRED)
     list(APPEND glfw_LIBRARIES OpenGL::GL)
 
@@ -286,8 +287,13 @@ if (_GLFW_WAYLAND)
 
     list(APPEND glfw_PKG_DEPS "wayland-egl")
 
+<<<<<<< HEAD
     list(APPEND glfw_INCLUDE_DIRS "${Wayland_INCLUDE_DIRS}")
     list(APPEND glfw_LIBRARIES "${Wayland_LIBRARIES}" "${CMAKE_THREAD_LIBS_INIT}")
+=======
+    list(APPEND glfw_INCLUDE_DIRS "${Wayland_INCLUDE_DIR}")
+    list(APPEND glfw_LIBRARIES "${Wayland_LIBRARIES}")
+>>>>>>> x11 dependencies from Hunter
 
     find_package(XKBCommon REQUIRED)
     list(APPEND glfw_INCLUDE_DIRS "${XKBCOMMON_INCLUDE_DIRS}")
@@ -312,7 +318,7 @@ if (_GLFW_MIR)
     list(APPEND glfw_PKG_DEPS "mirclient")
 
     list(APPEND glfw_INCLUDE_DIRS "${MIR_INCLUDE_DIRS}")
-    list(APPEND glfw_LIBRARIES "${MIR_LIBRARIES}" "${CMAKE_THREAD_LIBS_INIT}")
+    list(APPEND glfw_LIBRARIES "${MIR_LIBRARIES}")
 
     find_package(XKBCommon REQUIRED)
     list(APPEND glfw_PKG_DEPS "xkbcommon")
@@ -325,7 +331,6 @@ endif()
 #--------------------------------------------------------------------
 if (_GLFW_OSMESA)
     find_package(osmesa REQUIRED)
-    list(APPEND glfw_LIBRARIES "${CMAKE_THREAD_LIBS_INIT}")
 endif()
 
 #--------------------------------------------------------------------
