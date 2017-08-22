@@ -147,7 +147,7 @@ if (BUILD_SHARED_LIBS)
     target_compile_definitions(glfw INTERFACE GLFW_DLL)
     target_link_libraries(glfw PRIVATE ${glfw_LIBRARIES})
 else()
-    target_link_libraries(glfw INTERFACE ${glfw_LIBRARIES})
+    target_link_libraries(glfw PUBLIC ${glfw_LIBRARIES})
 endif()
 
 if (MSVC)
