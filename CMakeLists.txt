@@ -264,12 +264,9 @@ if (_GLFW_X11)
     find_package(OpenGL REQUIRED)
     list(APPEND glfw_LIBRARIES OpenGL::GL)
 
-    foreach(dep xcursor xinerama xrandr xi)
-      hunter_add_package(${dep})
-      find_package(${dep} CONFIG REQUIRED)
-
-      list(APPEND glfw_LIBRARIES "PkgConfig::${dep}")
-      list(APPEND glfw_PKG_DEPS "PkgConfig::${dep}")
+    foreach(dep Xcursor Xinerama Xrandr Xi X11    Xcursor Xinerama Xrandr Xi X11)
+        list(APPEND glfw_LIBRARIES "${dep}")
+        list(APPEND glfw_PKG_LIBS "-l${dep}")
     endforeach()
 endif()
 
