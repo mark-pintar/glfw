@@ -287,13 +287,8 @@ if (_GLFW_WAYLAND)
 
     list(APPEND glfw_PKG_DEPS "wayland-egl")
 
-<<<<<<< HEAD
     list(APPEND glfw_INCLUDE_DIRS "${Wayland_INCLUDE_DIRS}")
     list(APPEND glfw_LIBRARIES "${Wayland_LIBRARIES}" "${CMAKE_THREAD_LIBS_INIT}")
-=======
-    list(APPEND glfw_INCLUDE_DIRS "${Wayland_INCLUDE_DIR}")
-    list(APPEND glfw_LIBRARIES "${Wayland_LIBRARIES}")
->>>>>>> x11 dependencies from Hunter
 
     find_package(XKBCommon REQUIRED)
     list(APPEND glfw_INCLUDE_DIRS "${XKBCOMMON_INCLUDE_DIRS}")
